@@ -1,0 +1,155 @@
+{% block extra_style %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <style type="text/css">
+        .new-page {
+            page-break-before: always;
+        }
+
+        .header-block {
+            font-size: 1.2em;
+            text-align: left;
+        }
+
+        .td-head {
+            background-color: burlywood;
+        }
+
+        body {
+            height: 200px;
+            font-family: "Times New Roman", serif;
+            color: black;
+            background-color: white;
+            font-size: 1.2em;
+        }
+
+
+        table {
+            width: 100% !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div>
+        <p class="header-block">
+            <strong>Магазин:</strong> {{ shop_name }}<br>
+            <strong>Планограма:</strong> {{ pl_name }}<br>
+            <strong>Дата останньої зміни:</strong> 24.04.2019<br>
+            <strong>Дата збереження:</strong> 30.04.2019<br>
+            <strong>Кількість SKU:</strong> {{ sku }}<br>
+        </p>
+
+        <table style="height: 171px; border-color: black; width: 100%; border-spacing: 0px;" border="1" width="100%"
+               cellspacing="0" cellpadding="6">
+            <tbody>
+            <tr style="height: 91.375px;">
+                <td style="width: 100%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Назва стенда
+                    </strong>
+                </td>
+                <td style="width: 100%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Тип обладнання
+                    </strong>
+                </td>
+                <td style="width: 100%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Кол-во полок
+                    </strong>
+                </td>
+                <td style="width: 100%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Кол-во ящиков
+                    </strong>
+                </td>
+                <td style="width: 84.5194%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Кол-во крючков
+                    </strong>
+                </td>
+                <td style="width: 114.481%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Висота стенда
+                    </strong>
+                </td>
+                <td style="width: 100%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Длина стелажа
+                    </strong>
+                </td>
+                <td style="width: 100%; height: 91.375px; text-align: center;">
+                    <strong style="font-size: 14px;">
+                        Запас товара
+                    </strong>
+                </td>
+            </tr>
+            <tr style="height: 50px;">
+                <td style="width: 100%; height: 50px;"><span style="font-size: 1.1em;">{{ stand_name }}</span></td>
+                <td style="width: 100%; height: 50px;"><span style="font-size: 1.1em;">{{ instrument_type }}</span></td>
+                <td style="width: 100%; height: 50px;"><span style="font-size: 1.1em;">{{ instruments.shelves }}</span>
+                </td>
+                <td style="width: 100%; height: 50px;"><span style="font-size: 1.1em;">{{ instruments.boxes }}</span>
+                </td>
+                <td style="width: 84.5194%; height: 50px;"><span
+                        style="font-size: 1.1em;">{{ instruments.hooks }}</span></td>
+                <td style="width: 114.481%; height: 50px;"><span style="font-size: 1.1em;">1.9</span></td>
+                <td style="width: 100%; height: 50px;"><span style="font-size: 1.1em;">3</span></td>
+                <td style="width: 100%; text-align: left; height: 50px;"><span style="font-size: 1.1em;">2011</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <img src="{{ img }}" style="  display: block; background-color: blue;
+  width: 100%;"/>
+
+    <div class="new-page"></div>
+
+    {% for stand in stands %}
+        <h1>{{ stand.name }}</h1>
+        {% for table in stand.table %}
+
+            <table style=" width: 100%; border-color: black; text-align: center" border="1" width="100%">
+                <tr>
+                <tr style="height: 50px;">
+                    {% for col in table.columns %}
+                        <td class="td-head" style="width: 74px; height: 50px;"><strong>{{ col }}</strong></td>
+                    {% endfor %}
+                </tr>
+
+                <tr style="height: 50px;">
+                    <th style="width: 50px; height: 10px;" rowspan="{{ table.data|length }}">{{ table.col_number }}</th>
+                    {% for data in table.data %}
+                        {% if not forloop.first %}
+                            <tr style="height: 48px;">
+                        {% endif %}
+
+                    <td style="width: 66px; height: 50px;">{{ data.1 }}</td>
+                    <td style="width: 66px; height: 50px;">{{ data.2 }}</td>
+                    <td style="width: 66px; height: 50px;">{{ data.3 }}</td>
+                    <td style="width: 66px; height: 50px;">{{ data.4 }}</td>
+                    <td style="width: 66px; height: 50px;">{{ data.5 }}</td>
+                    <td style="width: 67px; height: 50px;">{{ data.6 }}</td>
+                    <td style="width: 67px; height: 50px;">{{ data.7 }}</td>
+                    <td style="width: 68px; height: 50px;">{{ data.8 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+
+    {% endfor %}
+
+    <div style="margin-top: 50px; text-align: right">
+        Хто виклав _________________________________
+        <br><br><br>
+        Дата викладки _________________________________
+    </div>
+
+{% endblock %}
+
